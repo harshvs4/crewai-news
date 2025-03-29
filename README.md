@@ -1,9 +1,10 @@
-# 🧠 CrewAI News Writer with Gemini
+# CrewAI News Writer with Gemini
 
 This project uses the [CrewAI](https://github.com/joaomdmoura/crewai) framework along with **Gemini 1.5 Pro** (via Google Generative AI) to research and write news articles on the latest trends in any topic. The crew consists of two intelligent agents: a **Senior Researcher** and a **News Writer**. The agents collaborate to generate high-quality articles using real-time data from the web.
 
-## 📁 Project Structure
+## Project Structure
 
+```text
 .
 ├── agents.py           # Defines the agents and their configurations
 ├── crew.py             # Main entrypoint to initialize and run the crew
@@ -11,71 +12,87 @@ This project uses the [CrewAI](https://github.com/joaomdmoura/crewai) framework 
 ├── tools.py            # Adds a web search tool using Serper API
 ├── .env                # Stores API keys securely
 └── news_article.md     # Output file with the final news article
+```
 
-## 🛠️ Requirements
+## Requirements
 
 - Python 3.10+
-- OpenAI-compatible LLM API (Google Gemini via [LiteLLM](https://docs.litellm.ai))
-- [Serper.dev](https://serper.dev) API key for real-time web search
+- CrewAI
+- LiteLLM
+- Serper.dev API key for real-time search
+- python-dotenv
 
-## 📦 Installation
+## Installation
 
-1. **Clone the repository**
-
-```bash
+1. Clone the repository
+```
 git clone https://github.com/your-username/crewai-gemini-news.git
 cd crewai-gemini-news
+```
 
-	2.	Create and activate a virtual environment
-
+2. Create and activate a virtual environment
+```
 python -m venv venv
-source venv/bin/activate  # On Windows use: venv\Scripts\activate
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+```
 
-	3.	Install dependencies
-
+3. Install dependencies
+```
 pip install -r requirements.txt
+```
 
-	4.	Add your API keys
-
-Create a .env file in the root directory with the following content:
-
+4. Configure environment variables
+Create a .env file in the root directory:
+```
 GEMINI_API_KEY=your_gemini_api_key
 SERPER_API_KEY=your_serper_api_key
+```
 
-🚀 Running the Project
+## Running the Project
 
-To execute the agent crew and generate a news article on a chosen topic:
-
+Run the script to execute the agent crew:
+```
 python crew.py
+```
 
-The default topic is set to "AI in healthcare". You can modify it in crew.py:
+By default, the topic is set to:
+```python
+inputs={"topic": "AI in healthcare"}
+```
 
-result = crew.kickoff(inputs={"topic": "AI in healthcare"})
+Modify this line in crew.py to change the topic.
 
-🧠 How It Works
-	•	LLM Setup (LLM): Configured with Gemini 1.5 Pro for powerful text generation.
-	•	Agent 1 - Senior Researcher: Searches for the latest trends using Serper.dev.
-	•	Agent 2 - News Writer: Writes a high-quality news article based on the findings.
-	•	Process: Sequential execution with optional memory and tool support.
+## How It Works
 
-✅ Output
+- **LLM Setup**: Uses gemini/gemini-1.5-pro with your Google API key.
+- **Senior Researcher**: Gathers recent and relevant news from the web using SerperDevTool.
+- **News Writer**: Writes a complete news article based on the research.
+- **Execution Flow**: Tasks run sequentially, with memory enabled for contextual continuity.
 
-The generated article will be saved in:
+## Output
 
+The generated article will be saved as:
+```
 news_article.md
+```
 
-⚠️ Notes
-	•	You might see warnings from Pydantic v2 — they are safe to ignore for now.
-	•	Make sure your model name is prefixed with the provider, e.g. gemini/gemini-1.5-pro.
+Example:
+```markdown
+# AI in Healthcare: Top Trends of 2025
+...
+```
 
-📚 References
-	•	CrewAI Documentation
-	•	LiteLLM Providers
-	•	Google Gemini
-	•	Serper.dev
+## Notes
 
-📄 License
+- You may encounter deprecation warnings from Pydantic v2 — these are safe to ignore for now.
+- Ensure the LLM model is correctly specified as:
+```python
+model="gemini/gemini-1.5-pro"
+```
 
-MIT License — feel free to fork and customize!
+## References
 
-Let me know if you want me to generate a `requirements.txt` or add a badge/header section for GitHub!
+- [CrewAI Documentation](https://docs.crewai.com/)
+- [LiteLLM Providers](https://docs.litellm.ai/docs/providers)
+- [Google AI - Gemini](https://ai.google.dev/)
+- [Serper.dev](https://serper.dev/)
